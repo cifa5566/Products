@@ -1,14 +1,17 @@
-#讀取檔案
+import os # operating system
 products = []
+if os.path.isfile('products.csv'):
+	print('Yes')
+	with open('products.csv', 'r', encoding = 'utf-8') as f:  # encoding =編碼 讀取寫入需相同
+		for line in f:
+			if '商品,價格' in line:
+				continue  #跳過標題 繼續迴圈
+			name, price = line.strip().split(',') # strip()=去除/n , split(',')=用逗號分割資料 
+			products.append([name, price])
 
-with open('products.csv', 'r', encoding = 'utf-8') as f:  # encoding =編碼 讀取寫入需相同
-	for line in f:
-		if '商品,價格' in line:
-			continue  #跳過標題 繼續迴圈
-		name, price = line.strip().split(',') # strip()=去除/n , split(',')=用逗號分割資料 
-		products.append([name, price])
-
-print(products)
+	print(products)	
+else:
+	print('找不到檔案')
 
 
 
